@@ -1,9 +1,11 @@
+--create an empty table to hold the ID, name, and department of each item in any of the stores
 CREATE TABLE product_info (
     product_ID         serial primary key,
     product_name       varchar,
     product_dept       varchar
 );
 
+--create an empty table to hold the ID, location details, and opening date of each of the stores
 CREATE TABLE location_info (
     location_ID	       serial primary key,
     cross_street       varchar,
@@ -12,7 +14,7 @@ CREATE TABLE location_info (
     date_opened        date
 );
 
---where NULL price means the product is not sold at that location
+--create an empty table to hold the item information that varies per store location
 CREATE TABLE product_location (
     product_location_ID serial primary key,
     product_ID          integer references product_info(product_ID),
