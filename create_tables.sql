@@ -25,11 +25,4 @@ CREATE TABLE product_location (
 
 --drop table product_price;
 --drop table location_info;
---drop cascade table product_info;
-
-
-
-
-
-
-
+--drop table product_info;

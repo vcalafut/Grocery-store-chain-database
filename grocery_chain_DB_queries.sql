@@ -1,8 +1,3 @@
---select * from product_info
---select * from location_info
---select * from product_location
-
-
 --query to check how many locations are in each city, from most to least
 select distinct city, count(city) from location_info
 group by city
@@ -100,4 +95,8 @@ ADD total dec(5,2)
 select total from test
 
 
+
+--select * from product_info
+--select * from location_info
+--select * from product_location
 

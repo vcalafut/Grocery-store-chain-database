@@ -9,7 +9,3 @@ values ('Dundas-Bathurst', 'Toronto', 'ON', '2023-11-16');
 
 insert into location_info(cross_street, city, province, date_opened)
 values ('Dundurn-Aberdeen', 'Hamilton', 'ON', '2024-3-02');
-
-
-
-
