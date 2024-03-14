@@ -1,39 +1,51 @@
-select * from product_info
-select * from location_info
-select * from product_location
+--select * from product_info
+--select * from location_info
+--select * from product_location
 
 
---query to check how many locations are in each city, from highest to lowest
+--query to check how many locations are in each city, from most to least
 select distinct city, count(city) from location_info
 group by city
 order by count(city) desc;
+
 
 --query to see the most recently opened locations info first
 select * from location_info
 order by date_opened desc;
 
+
 --query to see how many product types are out of stock at each location 
 select cross_street, count('null') from location_info
 group by cross_street; 
 
---check for stock errors where null and 0 
+
+--check for null pricing errors in the database -- null priced items should have 0 in stock, so this query should return nothing
+select product_id, location_id, price, stock from product_location
+where price is null and stock > 0;
 
 
-
-drop view inventory_variety
---create a view to use for new queries
+-----------------------------------
+--create a view with useful inventory info for future queries
+--drop view inventory_variety
 create or replace view inventory_variety AS
 select distinct product_info.product_ID, product_info.product_name, product_location.price, product_location.location_ID, location_info.cross_street
 from product_location
 left join product_info on product_location.product_ID = product_info.product_ID
 left join location_info on product_location.location_ID = location_info.location_ID
+-----------------------------------
+
 
 --query to determine the inventory variety at a specific location; search by location_ID (e.g. 1)
 select * from inventory_variety
 where location_ID = 1 and price is not null;
 
 
---do the same in a query to check correctness
+--query to determine the inventory variety at a specific location; search by location name (e.g. Bloor-Yonge)
+select * from inventory_variety
+where cross_street = 'Bloor-Yonge' and price is not null;
+
+
+--repeat the same two queries from above without using the view, to check correctness
 select distinct product_info.product_ID, product_info.product_name, product_location.location_ID, location_info.cross_street
 from product_location
 left join product_info on product_location.product_ID = product_info.product_ID
@@ -41,11 +53,6 @@ left join location_info on product_location.location_ID = location_info.location
 where product_location.location_ID = 1 and product_location.price is not null;
 
 
---query to determine the inventory variety at a specific location; search by location name (e.g. Bloor-Yonge)
-select * from inventory_variety
-where cross_street = 'Bloor-Yonge' and price is not null;
-
---same thing in a query without the view to test
 select distinct product_info.product_ID, product_info.product_name, product_location.location_ID, location_info.cross_street
 from product_location
 left join product_info on product_location.product_ID = product_info.product_ID
@@ -53,25 +60,6 @@ left join location_info on product_location.location_ID = location_info.location
 where location_info.cross_street = 'Bloor-Yonge' and product_location.price is not null;
 
 
-
-
-
-
-
-
---find worth of all the products in the inventory in each store
---
-drop view test 
-
-
-ALTER TABLE product_location
-ADD total dec(5,2)
-
-
-
-
-
-select total from test
 
 
 
@@ -101,6 +89,15 @@ left join location_info on product_location.location_ID = location_info.location
 group by location_info.cross_street;
 
 
+--find worth of all the products in the inventory in each store
+ALTER TABLE product_location
+ADD total dec(5,2)
+
+
+
+
+
+select total from test
 
 
 
