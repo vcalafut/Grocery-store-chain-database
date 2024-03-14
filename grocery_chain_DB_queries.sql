@@ -33,7 +33,7 @@ select * from inventory_variety
 where location_ID = 1 and price is not null;
 
 
---Q5A. query to determine the inventory variety at a specific location; search by location name (e.g. Bloor-Yonge)
+--Q5A. query to determine the inventory variety (which products names are in stock) at a specific location; search by location name (e.g. Bloor-Yonge)
 select * from inventory_variety
 where cross_street = 'Bloor-Yonge' and price is not null;
 
@@ -54,24 +54,30 @@ left join location_info on product_location.location_ID = location_info.location
 where location_info.cross_street = 'Bloor-Yonge' and product_location.price is not null;
 
 
---Q6. query to see how many product types are out of stock at each location
+--Q6. query to see how many product types are OUT of stock at each location
 select cross_street, count('null') from location_info
 group by cross_street; 
 
 
---Q7. query to check the location with the average prices across all in stock products
+--Q7. query to find the quantity of items thare are IN stock in each store
+select count(stock), cross_street from product_and_location_details
+group by cross_street
+order by count(stock);
+
+
+--Q8. query to check the location with the average prices across all in stock products
 select location_info.cross_street, avg(price) from product_location
 left join location_info on product_location.location_ID = location_info.location_ID
 group by location_info.cross_street;
 
 
---Q8. query to find worth of all the products in the inventory in each store
+--Q9. query to find worth of all the products in the inventory in each store
 select sum(price*stock), cross_street from product_and_location_details
 group by cross_street
 order by sum(price*stock) desc;
 
 
---V2. to look at/use the product info and location info together
+--V2. to look at/use commonly useful product info and location info together
 create or replace view product_and_location_details as
 select distinct product_info.product_ID, product_info.product_name, product_location.price, product_location.stock, product_location.location_ID, location_info.cross_street, location_info.city, location_info.date_opened
 from product_location
