@@ -14,7 +14,7 @@ CREATE TABLE location_info (
     date_opened        date
 );
 
---create an empty table to hold the item information that varies per store location
+--create an empty table to hold the item information that varies per store location, linked by the ID numbers of the products and locations
 CREATE TABLE product_location (
     product_location_ID serial primary key,
     product_ID          integer references product_info(product_ID),
