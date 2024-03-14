@@ -1,6 +1,8 @@
+--populate data for the first location
 insert into location_info(cross_street, city, province, date_opened)
 values ('Bloor-Yonge', 'Toronto', 'ON', '2019-02-08');
 
+--repeat for each of the remaining locations
 insert into location_info(cross_street, city, province, date_opened)
 values ('Eglinton-Yonge', 'Toronto', 'ON', '2020-07-21');
 

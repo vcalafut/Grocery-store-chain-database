@@ -1,6 +1,8 @@
+--insert data for the first product
 insert into product_info(product_name, product_dept)
 values ('apple', 'produce');
 
+--repeat the same way for each of the remaining products
 insert into product_info(product_name, product_dept)
 values ('orange', 'produce');
 
