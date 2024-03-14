@@ -1,12 +1,12 @@
 CREATE TABLE product_info (
     product_ID         serial primary key,
     product_name       varchar,
-	product_dept	   varchar
+    product_dept       varchar
 );
 
 CREATE TABLE location_info (
-    location_ID		   serial primary key,
-	cross_street       varchar,
+    location_ID	       serial primary key,
+    cross_street       varchar,
     city               varchar,
     province           varchar,
     date_opened        date
@@ -14,12 +14,12 @@ CREATE TABLE location_info (
 
 --where NULL price means the product is not sold at that location
 CREATE TABLE product_location (
-	product_location_ID serial primary key,
+    product_location_ID serial primary key,
     product_ID          integer references product_info(product_ID),
     price               decimal(5,2),   
-	stock			    integer,
-	date_recorded	    date,
-	location_ID         integer references location_info(location_ID)
+    stock		integer,
+    date_recorded	date,
+    location_ID         integer references location_info(location_ID)
 );
 
 
