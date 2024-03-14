@@ -1,4 +1,4 @@
---create an empty table to hold the ID, name, and department of each item in any of the stores
+--create an empty table to hold the details that are instrinic to each product that is found in any of the stores
 CREATE TABLE product_info (
     product_ID         serial primary key,
     product_name       varchar,
